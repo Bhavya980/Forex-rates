@@ -12,7 +12,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 object OneFrameHttpRoutes {
 
-  def getRatesFromOneFrame(implicit CE: ConcurrentEffect[IO]): IO[List[CurrencyExchange]] = {
+  def makeOneFrameAPICall(implicit CE: ConcurrentEffect[IO]): IO[List[CurrencyExchange]] = {
     BlazeClientBuilder[IO](global).resource.use { client =>
       for {
         // Define your API endpoint URI
