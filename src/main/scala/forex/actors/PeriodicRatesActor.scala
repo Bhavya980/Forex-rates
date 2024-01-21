@@ -15,6 +15,7 @@ class PeriodicRatesActor extends Actor {
       receiver = self,
       message = UpdateRates
     )
+    ()
   }
 
   override def receive: Receive = {
