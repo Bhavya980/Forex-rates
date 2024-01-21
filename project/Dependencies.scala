@@ -3,6 +3,7 @@ import sbt._
 object Dependencies {
 
   object Versions {
+    val Akka       = "2.8.5"
     val cats       = "2.6.1"
     val catsEffect = "2.5.1"
     val fs2        = "2.5.4"
@@ -21,9 +22,10 @@ object Dependencies {
     def circe(artifact: String): ModuleID  = "io.circe"   %% artifact % Versions.circe
     def http4s(artifact: String): ModuleID = "org.http4s" %% artifact % Versions.http4s
 
-    lazy val cats       = "org.typelevel" %% "cats-core"   % Versions.cats
-    lazy val catsEffect = "org.typelevel" %% "cats-effect" % Versions.catsEffect
-    lazy val fs2        = "co.fs2"        %% "fs2-core"    % Versions.fs2
+    lazy val akka       = "com.typesafe.akka" %% "akka-actor"  % Versions.Akka
+    lazy val cats       = "org.typelevel"     %% "cats-core"   % Versions.cats
+    lazy val catsEffect = "org.typelevel"     %% "cats-effect" % Versions.catsEffect
+    lazy val fs2        = "co.fs2"            %% "fs2-core"    % Versions.fs2
 
     lazy val http4sDsl       = http4s("http4s-dsl")
     lazy val http4sServer    = http4s("http4s-blaze-server")
