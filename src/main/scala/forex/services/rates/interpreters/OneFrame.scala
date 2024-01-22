@@ -1,8 +1,8 @@
-package forex.services.rates.interpreters
+package forex.services
+package rates.interpreters
 
 import cats.Applicative
-import cats.effect.IO.ioConcurrentEffect
-import cats.effect.{ConcurrentEffect, ContextShift, IO}
+import cats.effect.IO
 import forex.data.RatesData.rates
 import forex.domain.Currency.show
 import forex.domain.{CurrencyExchange, Price, Rate, Timestamp}
@@ -43,9 +43,6 @@ class OneFrame[F[_]: Applicative] extends Algebra[F] {
    }
 
    private def getRatesFromOneFrame: List[CurrencyExchange] = {
-     implicit val CS: ContextShift[IO] = IO.contextShift(scala.concurrent.ExecutionContext.global)
-     implicit val CE: ConcurrentEffect[IO] = ioConcurrentEffect
-
      val result: IO[List[CurrencyExchange]] = OneFrameHttpRoutes.makeOneFrameAPICall(CE)
 
      // Use unsafeRunSync to execute the IO action and get the result
