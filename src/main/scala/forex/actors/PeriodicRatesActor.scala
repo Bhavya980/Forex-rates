@@ -23,6 +23,5 @@ class PeriodicRatesActor extends Actor {
   override def receive: Receive = {
     case UpdateRates =>
       OneFrame.updateRatesData()
-      println("Rates Data: " + RatesData.rates)
   }
 }

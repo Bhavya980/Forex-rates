@@ -3,9 +3,8 @@ package forex.services.rates.interpreters
 import cats.Applicative
 import cats.effect.IO.ioConcurrentEffect
 import cats.effect.{ConcurrentEffect, ContextShift, IO}
-import cats.syntax.applicative._
-import cats.syntax.either._
 import forex.data.RatesData.rates
+import forex.domain.Currency.show
 import forex.domain.{CurrencyExchange, Price, Rate, Timestamp}
 import forex.http.oneframe.OneFrameHttpRoutes
 import forex.services.rates.Algebra
@@ -15,7 +14,15 @@ import forex.services.rates.errors._
 class OneFrame[F[_]: Applicative] extends Algebra[F] {
 
   override def get(pair: Rate.Pair): F[Error Either Rate] = {
-    Rate(pair, Price(BigDecimal(100)), Timestamp.now).asRight[Error].pure[F]
+    rates.find { rate =>
+      rate.from == show.show(pair.from) &&
+        rate.to == show.show(pair.to)
+    } match {
+      case Some(rate) =>
+        Applicative[F].pure(Right(Rate(pair, Price(rate.price), Timestamp.now)))
+      case None =>
+        Applicative[F].pure(Left(Error.OneFrameLookupFailed("Could not find rate")))
+    }
   }
 
 }
