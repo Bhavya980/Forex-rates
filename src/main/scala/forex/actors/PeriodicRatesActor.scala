@@ -12,7 +12,7 @@ class PeriodicRatesActor extends Actor {
   override def preStart(): Unit = {
     context.system.scheduler.scheduleAtFixedRate(
       initialDelay = 0.seconds,
-      interval = 5.seconds,
+      interval = 4.minutes,
       receiver = self,
       message = UpdateRates
     )
