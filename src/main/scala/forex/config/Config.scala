@@ -5,20 +5,24 @@ import fs2.Stream
 
 import pureconfig.ConfigSource
 import pureconfig.generic.auto._
+import scala.reflect.ClassTag
+
 
 object Config {
-
-  /**
-   * @param path the property path inside the default configuration
-   */
-  def streamHttpConfig[F[_]: Sync](path: String): Stream[F, HttpConfig] = {
+  private def streamConfig[F[_]: Sync, A <: AppConfig](path: String)(
+    implicit reader: pureconfig.ConfigReader[A],
+    classTag: ClassTag[A]
+  ): Stream[F, A] = {
     Stream.eval(Sync[F].delay(
-      ConfigSource.default.at(path).loadOrThrow[HttpConfig]))
+      ConfigSource.default.at(path).loadOrThrow[A]
+    ))
   }
 
-  def streamTokenConfig[F[_]: Sync](path: String): Stream[F, TokenConfig] = {
-    Stream.eval(Sync[F].delay(
-      ConfigSource.default.at(path).loadOrThrow[TokenConfig]))
+  def streamHttpConfig[F[_]: Sync](path: String): Stream[F, AppConfig.HttpConfig] = {
+    streamConfig[F, AppConfig.HttpConfig](path)
   }
 
+  def streamTokenConfig[F[_]: Sync](path: String): Stream[F, AppConfig.TokenConfig] = {
+    streamConfig[F, AppConfig.TokenConfig](path)
+  }
 }

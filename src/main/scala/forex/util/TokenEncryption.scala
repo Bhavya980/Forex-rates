@@ -1,6 +1,6 @@
 package forex.util
 
-import forex.config.TokenConfig
+import forex.config.AppConfig.TokenConfig
 
 import java.util.Base64
 import javax.crypto.Cipher

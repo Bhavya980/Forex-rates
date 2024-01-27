@@ -3,7 +3,7 @@ package rates
 
 import cats.effect.Sync
 import cats.implicits._
-import forex.config.TokenConfig
+import forex.config.AppConfig.TokenConfig
 import forex.domain.Currency
 import forex.programs.RatesProgram
 import forex.programs.rates.errors.Error

@@ -2,15 +2,12 @@ package forex.config
 
 import scala.concurrent.duration.FiniteDuration
 
-case class HttpConfig(
-  http: Http,
-)
+trait AppConfig
 
-case class TokenConfig(
-  token: String,
-  secretKey: String,
-  initializationVector: String
-)
+object AppConfig {
+  case class HttpConfig(http: Http) extends AppConfig
+  case class TokenConfig(token: String, secretKey: String, initializationVector: String) extends AppConfig
+}
 
 case class Http(
   host: String,
