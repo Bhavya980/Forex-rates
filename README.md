@@ -6,7 +6,7 @@ Built a local proxy for getting Currency Exchange Rates
 
 ## Implementation details
 
-- Since there was a limitation of the third-party provider which supports a maximum of 1000 requests per day, I have used a local storage where all the curency exchange 
+- Since there was a limitation of the third-party provider which supports a maximum of 1000 requests per day, I have used a local storage where all the currency exchange 
   rates will be stored.
 - I have used a ListBuffer as a local storage which is not an appropriate way to store data. However, to keep the 
   assignment simple, I have still used it. A better way to store the data would be a database.
@@ -14,7 +14,7 @@ Built a local proxy for getting Currency Exchange Rates
   external API call can take upto a minute to update all the currencies stored in our system. This will make sure 
   that the rate would not be older than 5 minutes. This means that we will be making total 360 API calls to the 
   one-frame api in a day which is less than 1000 threshold.
-- I have stored the secret-key and initialization-vector in application.conf file which is again not appropriate. These
+- I have stored the secret-key and initialization-vector in `application.conf` file which is again not appropriate. These
   should be stored using a key management system. Also, the initialization-vector should be randomly generated and not
   hard coded.
 - The application does not support all the currencies yet. To keep the assignment simple, I have used the existing 
