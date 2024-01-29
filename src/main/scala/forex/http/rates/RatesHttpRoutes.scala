@@ -14,7 +14,11 @@ import org.http4s.headers.Authorization
 import org.http4s.server.Router
 import org.http4s.{HttpRoutes, _}
 
-class RatesHttpRoutes[F[_]: Sync](rates: RatesProgram[F], tokenEncryption: TokenEncryption, tokenConfig: TokenConfig) extends Http4sDsl[F] {
+class RatesHttpRoutes[F[_]: Sync](
+  rates: RatesProgram[F],
+  tokenEncryption: TokenEncryption,
+  tokenConfig: TokenConfig
+) extends Http4sDsl[F] {
 
   import Converters._
 
